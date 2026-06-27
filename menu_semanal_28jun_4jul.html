@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan Dietético Semanal — 28 Jun / 4 Jul 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
+  :root {
+    --verde: #2D6A4F;
+    --verde-claro: #52B788;
+    --verde-muy-claro: #D8F3DC;
+    --naranja: #E07A2F;
+    --naranja-claro: #F4A261;
+    --crema: #FEFAE0;
+    --gris-claro: #F5F5F5;
+    --gris: #888;
+    --negro: #1a1a1a;
+    --blanco: #ffffff;
+    --borde: #d0d0d0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 9pt;
+    color: var(--negro);
+    background: white;
+    line-height: 1.4;
+  }
+
+  /* ===== PORTADA ===== */
+  .portada {
+    page-break-after: always;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--verde);
+    color: white;
+    text-align: center;
+    padding: 40px;
+  }
+  .portada .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 42pt;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .portada .subtitulo {
+    font-size: 11pt;
+    font-weight: 300;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 60px;
+  }
+  .portada .nombre {
+    font-size: 22pt;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .portada .semana {
+    font-size: 13pt;
+    font-weight: 300;
+    opacity: 0.9;
+    margin-bottom: 60px;
+  }
+  .portada .datos-base {
+    background: rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 24px 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+    max-width: 600px;
+    width: 100%;
+  }
+  .portada .dato { text-align: center; }
+  .portada .dato-valor { font-size: 18pt; font-weight: 700; }
+  .portada .dato-label { font-size: 7pt; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; margin-top: 2px; }
+  .portada .objetivo {
+    background: var(--naranja);
+    border-radius: 8px;
+    padding: 16px 32px;
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .portada .nota-hrv {
+    margin-top: 24px;
+    font-size: 8pt;
+    opacity: 0.65;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  /* ===== RESUMEN SEMANAL ===== */
+  .resumen-semanal {
+    page-break-after: always;
+    padding: 20px 24px;
+  }
+  .encabezado-seccion {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--verde);
+  }
+  .encabezado-seccion h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16pt;
+    color: var(--verde);
+  }
+  .tabla-semanal {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.5pt;
+  }
+  .tabla-semanal th {
+    background: var(--verde);
+    color: white;
+    padding: 6px 4px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 7pt;
+    letter-spacing: 0.5px;
+  }
+  .tabla-semanal th.col-meal { background: #1a4a36; text-align: left; padding-left: 8px; width: 70px; }
+  .tabla-semanal td {
+    border: 1px solid var(--borde);
+    padding: 5px 4px;
+    vertical-align: top;
+    text-align: center;
+    font-size: 7pt;
+  }
+  .tabla-semanal td.meal-label {
+    background: var(--verde-muy-claro);
+    font-weight: 700;
+    color: var(--verde);
+    text-align: left;
+    padding-left: 8px;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .tabla-semanal tr:nth-child(even) td:not(.meal-label) { background: #fafafa; }
+  .tabla-semanal .dia-descanso { background: #f0f0f0; color: #aaa; font-style: italic; }
+  .chip-entreno {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 10px;
+    font-size: 6pt;
+    font-weight: 700;
+    margin-bottom: 3px;
+    letter-spacing: 0.3px;
+  }
+  .chip-strong { background: #FFE5CC; color: #B84800; }
+  .chip-hiit { background: #FFD6D6; color: #B80000; }
+  .chip-spin { background: #D6E8FF; color: #003D99; }
+  .chip-descanso { background: #E8E8E8; color: #666; }
+  .plato-resumen { font-size: 6.8pt; line-height: 1.4; }
+  .plato-resumen strong { font-weight: 600; color: var(--verde); }
+
+  /* ===== SISTEMA HRV ===== */
+  .hrv-sistema {
+    page-break-after: always;
+    padding: 20px 24px;
+  }
+  .hrv-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .hrv-card {
+    border-radius: 8px;
+    padding: 16px;
+    border: 1.5px solid;
+  }
+  .hrv-card.rojo { border-color: #e74c3c; background: #fdf0f0; }
+  .hrv-card.amarillo { border-color: #f39c12; background: #fdf8ec; }
+  .hrv-card.verde { border-color: #27ae60; background: #f0fdf4; }
+  .hrv-card.verde-max { border-color: #1a7a40; background: #e6f7ed; }
+  .hrv-titulo {
+    font-weight: 700;
+    font-size: 9pt;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hrv-rango {
+    font-size: 12pt;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .hrv-rojo .hrv-rango { color: #e74c3c; }
+  .hrv-amarillo .hrv-rango { color: #f39c12; }
+  .hrv-verde .hrv-rango, .hrv-verde-max .hrv-rango { color: #27ae60; }
+  .hrv-item { font-size: 7.5pt; margin-bottom: 3px; padding-left: 8px; position: relative; }
+  .hrv-item::before { content: '—'; position: absolute; left: 0; color: var(--gris); }
+  .casilla-hrv {
+    margin-top: 20px;
+    border: 1.5px solid var(--borde);
+    border-radius: 8px;
+    padding: 12px;
+    background: var(--crema);
+  }
+  .casilla-hrv h4 { font-size: 8pt; font-weight: 700; color: var(--verde); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .hrv-registro-fila {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 1fr;
+    gap: 4px;
+    margin-bottom: 4px;
+    align-items: center;
+    font-size: 7.5pt;
+  }
+  .hrv-linea {
+    border-bottom: 1px solid #ccc;
+    height: 16px;
+  }
+
+  /* ===== DIAS ===== */
+  .dia-pagina {
+    page-break-before: always;
+    padding: 20px 24px;
+  }
+  .dia-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--verde);
+  }
+  .dia-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 20pt;
+    color: var(--verde);
+  }
+  .dia-fecha { font-size: 8pt; color: var(--gris); margin-top: 2px; }
+  .dia-meta {
+    text-align: right;
+  }
+  .dia-entreno-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 7.5pt;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .badge-strong { background: #FFE5CC; color: #B84800; }
+  .badge-hiit { background: #FFD6D6; color: #B80000; }
+  .badge-spin { background: #D6E8FF; color: #003D99; }
+  .badge-descanso { background: #E8E8E8; color: #555; }
+  .dia-hrv-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 7.5pt;
+    color: var(--gris);
+  }
+  .hrv-input {
+    border: 1.5px solid var(--borde);
+    border-radius: 4px;
+    padding: 2px 8px;
+    width: 60px;
+    font-size: 8pt;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  /* Tabla de comidas del día */
+  .tabla-dia {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+  .tabla-dia th {
+    background: var(--verde);
+    color: white;
+    padding: 5px 8px;
+    font-size: 7.5pt;
+    font-weight: 600;
+    text-align: left;
+  }
+  .tabla-dia th:nth-child(2) { width: 140px; text-align: center; }
+  .tabla-dia th:nth-child(3) { width: 80px; text-align: center; }
+
+  .bloque-comida {
+    margin-bottom: 12px;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .bloque-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    background: var(--verde-muy-claro);
+    border-bottom: 1px solid var(--borde);
+  }
+  .bloque-hora {
+    font-size: 7pt;
+    font-weight: 700;
+    color: var(--verde);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 55px;
+  }
+  .bloque-nombre {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--verde);
+    flex: 1;
+  }
+
+  .ingredientes-tabla {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .ingredientes-tabla th {
+    background: #f0f0f0;
+    font-size: 7pt;
+    font-weight: 600;
+    padding: 4px 8px;
+    text-align: left;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .ingredientes-tabla th.cant-col { width: 100px; text-align: center; }
+  .ingredientes-tabla th.ajuste-col { width: 70px; text-align: center; }
+  .ingredientes-tabla td {
+    padding: 4px 8px;
+    font-size: 7.5pt;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+  }
+  .ingredientes-tabla td.cant { text-align: center; font-weight: 600; color: var(--verde); }
+  .ingredientes-tabla td.ajuste { text-align: center; }
+  .ingredientes-tabla tr:last-child td { border-bottom: none; }
+  .linea-ajuste {
+    display: inline-block;
+    border-bottom: 1px solid #aaa;
+    width: 50px;
+    height: 14px;
+    vertical-align: bottom;
+  }
+
+  .receta-bloque {
+    padding: 8px 10px;
+    background: #fafafa;
+    border-top: 1px solid #eee;
+  }
+  .receta-titulo {
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gris);
+    margin-bottom: 5px;
+  }
+  .paso {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 4px;
+    margin-bottom: 3px;
+    font-size: 7.5pt;
+    line-height: 1.4;
+  }
+  .paso-num {
+    font-weight: 700;
+    color: var(--verde);
+    font-size: 7pt;
+  }
+
+  /* Nota suplementos */
+  .suplementos-box {
+    background: var(--crema);
+    border: 1px solid var(--naranja-claro);
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-top: 10px;
+    font-size: 7.5pt;
+  }
+  .suplementos-titulo { font-weight: 700; color: var(--naranja); font-size: 7.5pt; margin-bottom: 4px; }
+
+  /* Alergenos */
+  .alergenos {
+    font-size: 6.5pt;
+    color: var(--naranja);
+    font-weight: 600;
+  }
+
+  /* ===== LISTA DE LA COMPRA ===== */
+  .lista-compra {
+    page-break-before: always;
+    padding: 20px 24px;
+  }
+  .compra-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .compra-categoria h4 {
+    background: var(--verde);
+    color: white;
+    padding: 4px 8px;
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: 0;
+  }
+  .compra-items {
+    border: 1px solid var(--borde);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 6px 8px;
+  }
+  .compra-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 0;
+    border-bottom: 1px dotted #eee;
+    font-size: 7.5pt;
+  }
+  .compra-item:last-child { border-bottom: none; }
+  .check-box {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #999;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .compra-cantidad { font-weight: 700; color: var(--verde); min-width: 35px; }
+
+  /* Print */
+  @media print {
+    body { font-size: 8pt; }
+    .portada { min-height: 100vh; }
+    @page { margin: 1cm; size: A4; }
+  }
+
+  .verde-dot { color: var(--verde-claro); font-size: 14pt; }
+  .separator { border: none; border-top: 1px solid var(--borde); margin: 8px 0; }
+  .fruta-tag { background: #FFF3CD; border: 1px solid #FFD700; border-radius: 10px; padding: 1px 6px; font-size: 6.5pt; font-weight: 600; color: #996600; }
+  .proteina-tag { background: #E8F5E9; border: 1px solid var(--verde-claro); border-radius: 10px; padding: 1px 6px; font-size: 6.5pt; font-weight: 600; color: var(--verde); }
+  .carbo-tag { background: #E3F2FD; border: 1px solid #90CAF9; border-radius: 10px; padding: 1px 6px; font-size: 6.5pt; font-weight: 600; color: #1565C0; }
+
+  .nota-cena {
+    background: #FFF8E1;
+    border-left: 3px solid var(--naranja);
+    padding: 5px 8px;
+    font-size: 7.5pt;
+    font-style: italic;
+    margin-bottom: 8px;
+    border-radius: 0 4px 4px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== PORTADA ===== -->
+<div class="portada">
+  <div class="logo">NUTRIPLAN</div>
+  <div class="subtitulo">Plan Dietético Adaptativo</div>
+  <div class="nombre">Antonio Jiménez Sáez</div>
+  <div class="semana">Semana 28 Jun – 4 Jul 2026</div>
+  <div class="datos-base">
+    <div class="dato">
+      <div class="dato-valor">78.35 kg</div>
+      <div class="dato-label">Peso actual</div>
+    </div>
+    <div class="dato">
+      <div class="dato-valor">16.6%</div>
+      <div class="dato-label">Grasa corporal</div>
+    </div>
+    <div class="dato">
+      <div class="dato-valor">62 kg</div>
+      <div class="dato-label">Masa muscular</div>
+    </div>
+    <div class="dato">
+      <div class="dato-valor">13–14%</div>
+      <div class="dato-label">Objetivo grasa</div>
+    </div>
+    <div class="dato">
+      <div class="dato-valor">175–185g</div>
+      <div class="dato-label">Proteína/día</div>
+    </div>
+    <div class="dato">
+      <div class="dato-valor">1773 kcal</div>
+      <div class="dato-label">TMB base</div>
+    </div>
+  </div>
+  <div class="objetivo">🎯 OBJETIVO: Pérdida de grasa preservando masa muscular</div>
+  <div class="nota-hrv">Las cantidades marcadas son la referencia base (HRV 52–70 ms / déficit moderado). Cada día, ajusta en el espacio en blanco según la indicación diaria basada en tu VFC real y zonas del entreno.</div>
+</div>
+
+<!-- ===== SISTEMA HRV ===== -->
+<div class="hrv-sistema">
+  <div class="encabezado-seccion">
+    <h2>Sistema de Ajuste por VFC (HRV)</h2>
+  </div>
+  <div class="hrv-grid">
+    <div class="hrv-card rojo">
+      <div class="hrv-titulo" style="color:#e74c3c">🔴 VFC BAJA</div>
+      <div class="hrv-rango" style="color:#e74c3c">&lt; 42 ms</div>
+      <div class="hrv-item">Déficit máximo</div>
+      <div class="hrv-item">Proteína: mantener 175g</div>
+      <div class="hrv-item">Carbo comida: mínimo o legumbre pequeña</div>
+      <div class="hrv-item">Sin patata ni arroz</div>
+      <div class="hrv-item">Verdura de volumen máxima</div>
+      <div class="hrv-item">Cena: solo proteína + verdura</div>
+    </div>
+    <div class="hrv-card amarillo">
+      <div class="hrv-titulo" style="color:#e67e22">🟡 VFC MODERADA</div>
+      <div class="hrv-rango" style="color:#e67e22">42–70 ms</div>
+      <div class="hrv-item">Déficit moderado <span style="font-size:6pt">(referencia base del menú)</span></div>
+      <div class="hrv-item">Proteína: 175–180g</div>
+      <div class="hrv-item">Carbo comida: legumbre o quinoa</div>
+      <div class="hrv-item">Patata solo días entreno fuerte</div>
+      <div class="hrv-item">Cena: proteína + verdura sin carbo</div>
+    </div>
+    <div class="hrv-card verde">
+      <div class="hrv-titulo" style="color:#27ae60">🟢 VFC ALTA</div>
+      <div class="hrv-rango" style="color:#27ae60">71–110 ms</div>
+      <div class="hrv-item">Déficit bajo</div>
+      <div class="hrv-item">Proteína: 180–185g</div>
+      <div class="hrv-item">Carbo comida: arroz, quinoa o patata</div>
+      <div class="hrv-item">Ración carbo +10–15g sobre base</div>
+      <div class="hrv-item">Cena: proteína + verdura sin carbo</div>
+    </div>
+  </div>
+  <div class="hrv-card verde" style="margin-top:12px; border-color:#1a7a40; background:#e0f7ea">
+    <div class="hrv-titulo" style="color:#1a7a40">⚡ VFC EXCEPCIONAL — como el 26 jun (131 ms)</div>
+    <div class="hrv-rango" style="color:#1a7a40">&gt; 110 ms</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
+      <div>
+        <div class="hrv-item">Déficit mínimo — día de nutrición máxima</div>
+        <div class="hrv-item">Proteína: 185g, raciones máximas</div>
+        <div class="hrv-item">Carbo comida: arroz o pasta integral</div>
+      </div>
+      <div>
+        <div class="hrv-item">Ración carbo +20g sobre base</div>
+        <div class="hrv-item">Marisco o pescado azul en comida</div>
+        <div class="hrv-item">Cena: proteína + verdura sin carbo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="casilla-hrv" style="margin-top:16px">
+    <h4>📋 Registro Semanal de VFC y Ajuste</h4>
+    <div class="hrv-registro-fila" style="font-weight:700; font-size:7pt; color:#555; border-bottom:1px solid #ccc; padding-bottom:4px; margin-bottom:6px">
+      <span>DÍA</span><span style="text-align:center">VFC REAL (ms)</span><span style="text-align:center">NIVEL</span><span style="text-align:center">AJUSTE APLICADO</span>
+    </div>
+    <div class="hrv-registro-fila"><span>Dom 29 Jun</span><div class="hrv-linea"></div><div class="hrv-linea"></div><div class="hrv-linea"></div></div>
+    <div class="hrv-registro-fila"><span>Lun 30 Jun</span><div class="hrv-linea"></div><div class="hrv-linea"></div><div class="hrv-linea"></div></div>
+    <div class="hrv-registro-fila"><span>Mar 1 Jul</span><div class="hrv-linea"></div><div class="hrv-linea"></div><div class="hrv-linea"></div></div>
+    <div class="hrv-registro-fila"><span>Mié 2 Jul</span><div class="hrv-linea"></div><div class="hrv-linea"></div><div class="hrv-linea"></div></div>
+    <div class="hrv-registro-fila"><span>Jue 3 Jul</span><div class="hrv-linea"></div><div class="hrv-linea"></div><div class="hrv-linea"></div></div>
+    <div class="hrv-registro-fila"><span>Vie 4 Jul</span><div class="hrv-linea"></div><div class="hrv-linea"></div><div class="hrv-linea"></div></div>
+    <div class="hrv-registro-fila"><span>Sáb 5 Jul</span><div class="hrv-linea"></div><div class="hrv-linea"></div><div class="hrv-linea"></div></div>
+  </div>
+
+  <div style="margin-top:16px; font-size:7.5pt; color:#555; line-height:1.7">
+    <strong>REGLAS FIJAS independientes de VFC:</strong><br>
+    ✓ Creatina 5g post-entreno siempre &nbsp;|&nbsp; ✓ Cena SIEMPRE sin carbohidrato &nbsp;|&nbsp; ✓ Entreno en ayunas &nbsp;|&nbsp; ✓ 3 comidas sin snacks<br>
+    ✓ Suplementos nocturnos: Omega-3 + D3K2 + Magnesio glicinato 300mg &nbsp;|&nbsp; ✓ Infusión dorada post-entreno (cúrcuma + pimienta + jengibre)<br>
+    ✓ Z5 máximo 10 min/sesión &nbsp;|&nbsp; ✓ Sin carbohidrato en cena aunque VFC sea excepcional
+  </div>
+</div>
+
+<!-- ===== RESUMEN SEMANAL ===== -->
+<div class="resumen-semanal">
+  <div class="encabezado-seccion">
+    <h2>Resumen Semanal — 28 Jun / 4 Jul 2026</h2>
+  </div>
+  <table class="tabla-semanal">
+    <thead>
+      <tr>
+        <th class="col-meal">Comida</th>
+        <th>Dom 29</th>
+        <th>Lun 30</th>
+        <th>Mar 1</th>
+        <th>Mié 2</th>
+        <th>Jue 3</th>
+        <th>Vie 4</th>
+        <th>Sáb 5</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="meal-label">Entreno</td>
+        <td><span class="chip-entreno chip-descanso">DESCANSO</span></td>
+        <td><span class="chip-entreno chip-strong">STRONG</span></td>
+        <td><span class="chip-entreno chip-hiit">HIIT / BURN</span></td>
+        <td><span class="chip-entreno chip-spin">SPINNING</span></td>
+        <td><span class="chip-entreno chip-strong">STRONG</span></td>
+        <td><span class="chip-entreno chip-spin">SPINNING</span></td>
+        <td><span class="chip-entreno chip-descanso">DESCANSO</span></td>
+      </tr>
+      <tr>
+        <td class="meal-label">Desayuno</td>
+        <td class="plato-resumen">Yogur griego 0%<br>Frutos rojos<br>Nueces<br>Fruta</td>
+        <td class="plato-resumen"><strong>Post-entreno</strong><br>Revuelto huevos<br>Avena + plátano<br>Infusión dorada</td>
+        <td class="plato-resumen"><strong>Post-entreno</strong><br>Tortilla francesa<br>Avena + frutos rojos<br>Infusión dorada</td>
+        <td class="plato-resumen"><strong>Post-entreno</strong><br>Revuelto huevos<br>Avena + plátano<br>Infusión dorada</td>
+        <td class="plato-resumen"><strong>Post-entreno</strong><br>Tortilla francesa<br>Avena + canela<br>Infusión dorada</td>
+        <td class="plato-resumen"><strong>Post-entreno</strong><br>Revuelto huevos<br>Avena + plátano<br>Infusión dorada</td>
+        <td class="plato-resumen">Yogur griego 0%<br>Granola casera<br>Fruta de temporada</td>
+      </tr>
+      <tr>
+        <td class="meal-label">Comida</td>
+        <td class="plato-resumen">Ensalada<br>Quinoa fría con<br>verduras y huevo<br>Fruta</td>
+        <td class="plato-resumen">Ensalada<br>Lentejas estofadas<br>con verduras<br>Salmón al horno<br>Fruta</td>
+        <td class="plato-resumen">Ensalada<br>Garbanzos con<br>atún y huevo duro<br>Fruta</td>
+        <td class="plato-resumen">Ensalada<br>Pollo al chilindrón<br>con quinoa<br>Fruta</td>
+        <td class="plato-resumen">Ensalada<br>Lentejas con<br>verduras y<br>huevo escalfado<br>Fruta</td>
+        <td class="plato-resumen">Ensalada<br>Arroz meloso con<br>gambas y sepia<br>Fruta</td>
+        <td class="plato-resumen">Ensalada<br>Pulpo a feira<br>sin patata<br>Fruta</td>
+      </tr>
+      <tr>
+        <td class="meal-label">Cena</td>
+        <td class="plato-resumen">Gazpacho<br>Pez espada<br>a la plancha<br>Verdura vapor</td>
+        <td class="plato-resumen">Crema puerros<br>Pollo a la plancha<br>Espárragos salteados</td>
+        <td class="plato-resumen">Salmorejo<br>Dorada plancha<br>Brócoli ajo negro</td>
+        <td class="plato-resumen">Crema calabacín<br>Salmón plancha<br>Espinacas salteadas</td>
+        <td class="plato-resumen">Gazpacho<br>Pavo plancha<br>Judía verde</td>
+        <td class="plato-resumen">Crema espárragos<br>Tofu marinado<br>Brócoli limón</td>
+        <td class="plato-resumen">Caldo verduras<br>Merluza vapor<br>Verdura vapor</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="margin-top:10px; font-size:7pt; color:#777; font-style:italic">
+    * Fruta de temporada en comida: 1 pieza mediana (125–150g). En desayuno integrada según el menú del día. Mínimo 3 piezas al día los días de entreno, 2 los días de descanso.
+  </div>
+</div>
+
+<!-- ===== DÍA 1: DOMINGO 29 JUN (DESCANSO) ===== -->
+<div class="dia-pagina">
+  <div class="dia-header">
+    <div>
+      <div class="dia-titulo">Domingo 29 Jun</div>
+      <div class="dia-fecha">Día de descanso — Déficit alto</div>
+    </div>
+    <div class="dia-meta">
+      <div><span class="dia-entreno-badge badge-descanso">🛌 DESCANSO</span></div>
+      <div class="dia-hrv-box" style="margin-top:6px; justify-content:flex-end">
+        <span>VFC registrada:</span>
+        <div class="hrv-input" style="background:#f5f5f5">&nbsp;</div>
+        <span>ms</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESAYUNO -->
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Desayuno · 09:00</span>
+      <span class="bloque-nombre">Yogur griego con frutos rojos y nueces</span>
+      <span class="proteina-tag">Proteína</span>
+      <span class="fruta-tag">Fruta</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td>Yogur griego 0% MG</td><td class="cant">250g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Frutos rojos mixtos (arándanos, frambuesas, fresas)</td><td class="cant">120g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Nueces (4 mitades)</td><td class="cant">15g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Miel cruda (opcional)</td><td class="cant">5g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Fruta de temporada (naranja, melocotón o sandía)</td><td class="cant">150g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Café solo o infusión</td><td class="cant">1 taza</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Sirve el yogur griego en bol amplio.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Distribuye los frutos rojos por encima. Si son congelados, sácalos 10 min antes.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Añade las nueces troceadas y el hilo de miel. La fruta de temporada aparte o en dados encima.</span></div>
+    </div>
+  </div>
+
+  <!-- COMIDA -->
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Comida · 14:00</span>
+      <span class="bloque-nombre">Ensalada + Quinoa fría con verduras, atún y huevo</span>
+      <span class="carbo-tag">Carbo</span><span class="proteina-tag">Proteína</span><span class="fruta-tag">Fruta</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">ENSALADA VERDE</td></tr>
+        <tr><td>Lechuga romana o canónigos</td><td class="cant">60g</td><td class="ajuste">—</td></tr>
+        <tr><td>Tomate cherry</td><td class="cant">80g</td><td class="ajuste">—</td></tr>
+        <tr><td>Pepino</td><td class="cant">60g</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE + vinagre de manzana</td><td class="cant">5g+</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">QUINOA FRÍA</td></tr>
+        <tr><td>Quinoa en seco</td><td class="cant">75g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Atún al natural escurrido</td><td class="cant">120g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Huevo duro</td><td class="cant">2 uds</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Pimiento rojo asado (tiras)</td><td class="cant">80g</td><td class="ajuste">—</td></tr>
+        <tr><td>Pepino en dados</td><td class="cant">60g</td><td class="ajuste">—</td></tr>
+        <tr><td>Cebolla morada en juliana</td><td class="cant">30g</td><td class="ajuste">—</td></tr>
+        <tr><td>Perejil fresco picado</td><td class="cant">15g</td><td class="ajuste">—</td></tr>
+        <tr><td>Vinagreta: AOVE + limón + mostaza + comino</td><td class="cant">10g AOVE</td><td class="ajuste">—</td></tr>
+        <tr><td>Fruta de temporada</td><td class="cant">150g</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Enjuaga la quinoa bajo el grifo 1 min. Cuece en el doble de agua con sal 12 min a fuego bajo tapada. Reposa 5 min. Enfría con agua fría en colador y escurre bien.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Huevos duros: agua fría, hierve y cuenta 10 min exactos. Agua con hielo 5 min. Pela y reserva.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Mezcla la quinoa fría con el pimiento asado, el pepino, la cebolla morada y el perejil.</span></div>
+      <div class="paso"><span class="paso-num">4</span><span>Emulsiona la vinagreta: AOVE + zumo de limón + mostaza + comino. Vierte sobre la quinoa y mezcla.</span></div>
+      <div class="paso"><span class="paso-num">5</span><span>Desmenuza el atún por encima. Coloca los huevos en cuartos. Sirve la ensalada verde aparte como entrante.</span></div>
+    </div>
+  </div>
+
+  <!-- CENA -->
+  <div class="nota-cena">⚠️ CENA — Siempre sin carbohidrato, independientemente de la VFC</div>
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Cena · 20:30</span>
+      <span class="bloque-nombre">Gazpacho + Pez espada a la plancha con verdura al vapor</span>
+      <span class="proteina-tag">Proteína</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">GAZPACHO</td></tr>
+        <tr><td>Tomates maduros de pera</td><td class="cant">500g</td><td class="ajuste">—</td></tr>
+        <tr><td>Pepino pelado</td><td class="cant">½ ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Pimiento verde</td><td class="cant">½ ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Cebolla</td><td class="cant">¼ ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Ajo pequeño</td><td class="cant">1 diente</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE</td><td class="cant">2 cdas</td><td class="ajuste">—</td></tr>
+        <tr><td>Vinagre de jerez</td><td class="cant">1 cda</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">PEZ ESPADA + VERDURA</td></tr>
+        <tr><td>Pez espada (filete)</td><td class="cant">200g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Brócoli al vapor</td><td class="cant">200g</td><td class="ajuste">—</td></tr>
+        <tr><td>Zanahoria al vapor</td><td class="cant">100g</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE en crudo + limón</td><td class="cant">8g</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Gazpacho: tritura todos los ingredientes a máxima potencia 2 min. AOVE en hilo emulsionando. Cuela. Nevera mínimo 45 min.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Pez espada: seca con papel, salpimenta. Sartén muy caliente con unas gotas de AOVE. 3 min por lado sin mover. Reposa 2 min.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Brócoli y zanahoria al vapor 6–7 min. Aliña con AOVE en crudo y zumo de limón.</span></div>
+      <div class="paso"><span class="paso-num">4</span><span>Sirve el gazpacho frío de entrante. Luego el pez espada con la verdura.</span></div>
+    </div>
+  </div>
+  <div class="suplementos-box">
+    <div class="suplementos-titulo">🌙 Suplementos nocturnos</div>
+    Omega-3 · Vitamina D3+K2 · Magnesio glicinato 300mg · Infusión de jengibre
+  </div>
+</div>
+
+<!-- ===== DÍA 2: LUNES 30 JUN (STRONG) ===== -->
+<div class="dia-pagina">
+  <div class="dia-header">
+    <div>
+      <div class="dia-titulo">Lunes 30 Jun</div>
+      <div class="dia-fecha">Entreno Strong 45' — Déficit moderado (referencia base)</div>
+    </div>
+    <div class="dia-meta">
+      <div><span class="dia-entreno-badge badge-strong">💪 STRONG 45'</span></div>
+      <div class="dia-hrv-box" style="margin-top:6px; justify-content:flex-end">
+        <span>VFC registrada:</span>
+        <div class="hrv-input">&nbsp;</div>
+        <span>ms</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Desayuno · Post</span>
+      <span class="bloque-nombre">Tortilla francesa + Avena con canela y fruta</span>
+      <span class="proteina-tag">Proteína</span><span class="carbo-tag">Carbo</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td>Huevos enteros</td><td class="cant">3 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Claras de huevo</td><td class="cant">2 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Avena en copos</td><td class="cant">75g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Plátano mediano</td><td class="cant">120g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Canela en polvo</td><td class="cant">Al gusto</td><td class="ajuste">—</td></tr>
+        <tr><td>Creatina monohidrato</td><td class="cant">5g</td><td class="ajuste">—</td></tr>
+        <tr><td>Infusión dorada (cúrcuma+pimienta+jengibre)</td><td class="cant">1 taza</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Nada más llegar: disuelve 5g creatina en agua fría. Bebe antes de preparar nada.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Avena: hierve 200ml agua, añade la avena, cuece 4–5 min removiendo. Tapa y reposa 2 min.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Bate huevos+claras con sal. Sartén antiadherente a fuego medio. Vierte el huevo, cuaja bordes 30 seg, lleva bordes al centro inclinando la sartén, dobla cuando casi no haya líquido visible. Fuera del fuego.</span></div>
+      <div class="paso"><span class="paso-num">4</span><span>Sirve avena con canela y plátano en rodajas encima. Infusión: agua caliente + ½ cdta cúrcuma + pimienta + jengibre rallado, 5 min.</span></div>
+    </div>
+  </div>
+
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Comida · 14:00</span>
+      <span class="bloque-nombre">Ensalada + Lentejas estofadas con verduras + Salmón al horno</span>
+      <span class="carbo-tag">Legumbre</span><span class="proteina-tag">Proteína</span><span class="fruta-tag">Fruta</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">ENSALADA VERDE (entrante)</td></tr>
+        <tr><td>Canónigos + tomate + pepino + cebolleta</td><td class="cant">Libre</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE + vinagre de manzana</td><td class="cant">5g</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">LENTEJAS ESTOFADAS</td></tr>
+        <tr><td>Lentejas pardinas en seco</td><td class="cant">80g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Cebolla mediana</td><td class="cant">1 ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Zanahoria</td><td class="cant">1 ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Pimiento verde</td><td class="cant">½ ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Tomate maduro rallado</td><td class="cant">1 ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Ajo</td><td class="cant">3 dientes</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE · pimentón · comino · laurel</td><td class="cant">8g AOVE</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">SALMÓN AL HORNO</td></tr>
+        <tr><td>Salmón (lomo)</td><td class="cant">180g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Perejil + ajo rallado + ralladura limón + AOVE</td><td class="cant">costra</td><td class="ajuste">—</td></tr>
+        <tr><td>Fruta de temporada</td><td class="cant">150g</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Lentejas (remojo 1h o usa bote escurrido 300g): en cazuela, pocha cebolla+zanahoria+pimiento+ajo 10 min. Tomate rallado 3 min. Pimentón+comino 20 seg fuego bajo. Añade lentejas+agua+laurel. Cuece 25–30 min a fuego suave tapada. Ajusta sal.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Salmón: horno a 200°C. Mezcla perejil picado+ajo rallado+ralladura limón+AOVE como costra. Coloca el salmón en bandeja con papel, salpimenta, extiende la costra. Hornea 12–14 min.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Sirve primero la ensalada, luego el bol de lentejas con el salmón al lado.</span></div>
+    </div>
+  </div>
+
+  <div class="nota-cena">⚠️ CENA — Sin carbohidrato</div>
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Cena · 20:30</span>
+      <span class="bloque-nombre">Crema de puerros + Pollo a la plancha con espárragos salteados</span>
+      <span class="proteina-tag">Proteína</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">CREMA DE PUERROS</td></tr>
+        <tr><td>Puerros (parte blanca+verde claro)</td><td class="cant">2 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Caldo de verduras</td><td class="cant">350ml</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE · sal · pimienta blanca · nuez moscada</td><td class="cant">8g AOVE</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">POLLO + ESPÁRRAGOS</td></tr>
+        <tr><td>Pechuga de pollo</td><td class="cant">180g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Espárragos verdes</td><td class="cant">150g</td><td class="ajuste">—</td></tr>
+        <tr><td>Ajo · AOVE · limón · sal · pimienta</td><td class="cant">8g AOVE</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Crema: puerros en rodajas pochados en AOVE 10 min a fuego suave. Cubre con caldo, cuece 15 min. Tritura a máxima potencia hasta sedosa. Sal, pimienta blanca, nuez moscada.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Pollo: salpimenta. Sartén fuego alto, 4 min por lado sin mover. Reposa 3 min tapado antes de cortar.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Espárragos: retira extremo leñoso. En la misma sartén con ajo laminado 30 seg, saltea espárragos 3–4 min. Limón al final.</span></div>
+    </div>
+  </div>
+  <div class="suplementos-box">
+    <div class="suplementos-titulo">🌙 Suplementos nocturnos</div>
+    Omega-3 · Vitamina D3+K2 · Magnesio glicinato 300mg · Infusión de jengibre
+  </div>
+</div>
+
+<!-- ===== DÍA 3: MARTES 1 JUL (HIIT) ===== -->
+<div class="dia-pagina">
+  <div class="dia-header">
+    <div>
+      <div class="dia-titulo">Martes 1 Jul</div>
+      <div class="dia-fecha">Entreno HIIT/Burn — Déficit moderado</div>
+    </div>
+    <div class="dia-meta">
+      <div><span class="dia-entreno-badge badge-hiit">🔥 HIIT / BURN</span></div>
+      <div class="dia-hrv-box" style="margin-top:6px; justify-content:flex-end">
+        <span>VFC registrada:</span>
+        <div class="hrv-input">&nbsp;</div>
+        <span>ms</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Desayuno · Post</span>
+      <span class="bloque-nombre">Tortilla francesa + Avena con frutos rojos</span>
+      <span class="proteina-tag">Proteína</span><span class="carbo-tag">Carbo</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td>Huevos enteros</td><td class="cant">3 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Claras de huevo</td><td class="cant">2 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Avena en copos</td><td class="cant">75g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Frutos rojos mixtos</td><td class="cant">120g</td><td class="ajuste">—</td></tr>
+        <tr><td>Creatina monohidrato</td><td class="cant">5g</td><td class="ajuste">—</td></tr>
+        <tr><td>Infusión dorada</td><td class="cant">1 taza</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Creatina en agua nada más llegar. Bebe antes de preparar.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Avena: hierve agua, añade avena, cuece 4–5 min. Sirve con frutos rojos encima (sin azúcar ni miel).</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Tortilla: bate huevos+claras, sartén a fuego medio, cuaja bordes hacia el centro, dobla al final. Fuera del fuego.</span></div>
+    </div>
+  </div>
+
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Comida · 14:00</span>
+      <span class="bloque-nombre">Ensalada + Garbanzos con atún, verduras y huevo duro</span>
+      <span class="carbo-tag">Legumbre</span><span class="proteina-tag">Proteína</span><span class="fruta-tag">Fruta</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">ENSALADA VERDE (entrante)</td></tr>
+        <tr><td>Lechuga romana + tomate + pepino</td><td class="cant">Libre</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">ENSALADA DE GARBANZOS</td></tr>
+        <tr><td>Garbanzos cocidos (bote escurrido)</td><td class="cant">200g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Atún al natural escurrido</td><td class="cant">140g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Huevo duro</td><td class="cant">2 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Pimiento rojo + pimiento verde</td><td class="cant">½+½ ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Tomate grande en dados</td><td class="cant">1 ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Cebolla morada</td><td class="cant">½ ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Pepino</td><td class="cant">½ ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Aceitunas negras sin hueso</td><td class="cant">10 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Perejil fresco picado</td><td class="cant">20g</td><td class="ajuste">—</td></tr>
+        <tr><td>Vinagreta: AOVE+vinagre manzana+comino+pimentón+mostaza</td><td class="cant">10g AOVE</td><td class="ajuste">—</td></tr>
+        <tr><td>Fruta de temporada</td><td class="cant">150g</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Huevos duros: agua fría, hierve 10 min exactos, agua+hielo 5 min, pela.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Escurre y enjuaga garbanzos bajo el grifo hasta que salga agua clara.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Corta todas las verduras en dados similares. Cebolla morada en juliana fina (opcional: 10 min en agua fría+vinagre para suavizar).</span></div>
+      <div class="paso"><span class="paso-num">4</span><span>Mezcla garbanzos+verduras. Emulsiona vinagreta, vierte y mezcla. Reposa 10 min. Añade atún desmenuzado y huevos en cuartos encima.</span></div>
+    </div>
+  </div>
+
+  <div class="nota-cena">⚠️ CENA — Sin carbohidrato</div>
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Cena · 20:30</span>
+      <span class="bloque-nombre">Salmorejo + Dorada a la plancha con brócoli al ajo negro</span>
+      <span class="proteina-tag">Proteína</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">SALMOREJO</td></tr>
+        <tr><td>Tomates maduros de pera</td><td class="cant">500g</td><td class="ajuste">—</td></tr>
+        <tr><td>Pan integral del día anterior</td><td class="cant">80g</td><td class="ajuste">—</td></tr>
+        <tr><td>Ajo · AOVE · vinagre de jerez · sal</td><td class="cant">2 cdas AOVE</td><td class="ajuste">—</td></tr>
+        <tr><td>Huevo duro (decorar) + atún lascas</td><td class="cant">1 ud</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">DORADA + BRÓCOLI</td></tr>
+        <tr><td>Dorada (filetes o entera abierta)</td><td class="cant">200g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Brócoli en floretes</td><td class="cant">200g</td><td class="ajuste">—</td></tr>
+        <tr><td>Ajo negro (3 dientes) · AOVE · limón</td><td class="cant">8g AOVE</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Salmorejo: tritura tomates 1 min. Añade pan+ajo, tritura 2 min. AOVE en hilo emulsionando. Vinagre+sal, 30 seg más. Cuela. Nevera 30 min mínimo. Al servir: huevo duro rallado + lascas atún + hilo AOVE.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Brócoli: blanquea en agua hirviendo con sal 2 min. Escurre. Plancha muy caliente con AOVE, 3 min sin mover, voltea 2 min. Aplasta ajo negro y extiende sobre el brócoli. Zumo de limón.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Dorada: seca con papel, salpimenta. Sartén fuego alto, lado piel primero 3–4 min, voltea 2–3 min. Reposa 2 min.</span></div>
+    </div>
+  </div>
+  <div class="suplementos-box">
+    <div class="suplementos-titulo">🌙 Suplementos nocturnos</div>
+    Omega-3 · Vitamina D3+K2 · Magnesio glicinato 300mg · Infusión de jengibre
+  </div>
+</div>
+
+<!-- ===== DÍA 4: MIÉRCOLES 2 JUL (SPINNING) ===== -->
+<div class="dia-pagina">
+  <div class="dia-header">
+    <div>
+      <div class="dia-titulo">Miércoles 2 Jul</div>
+      <div class="dia-fecha">Entreno Spinning — Déficit moderado-bajo si VFC verde</div>
+    </div>
+    <div class="dia-meta">
+      <div><span class="dia-entreno-badge badge-spin">🚴 SPINNING</span></div>
+      <div class="dia-hrv-box" style="margin-top:6px; justify-content:flex-end">
+        <span>VFC registrada:</span>
+        <div class="hrv-input">&nbsp;</div>
+        <span>ms</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Desayuno · Post</span>
+      <span class="bloque-nombre">Revuelto de huevos + Avena con plátano</span>
+      <span class="proteina-tag">Proteína</span><span class="carbo-tag">Carbo</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td>Huevos enteros</td><td class="cant">3 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Claras de huevo</td><td class="cant">2 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Avena en copos</td><td class="cant">80g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Plátano mediano</td><td class="cant">120g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Creatina monohidrato</td><td class="cant">5g</td><td class="ajuste">—</td></tr>
+        <tr><td>Infusión dorada</td><td class="cant">1 taza</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Creatina en agua, bebe nada más llegar.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Avena: 220ml agua hirviendo + avena, 5 min, reposa tapada. Plátano en rodajas encima con canela.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Revuelto: bate huevos+claras. Sartén fuego medio-bajo con gotas AOVE. Cuaja 2 min sin tocar, remueve suavemente con espátula en trozos grandes. Retira jugoso.</span></div>
+    </div>
+  </div>
+
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Comida · 14:00</span>
+      <span class="bloque-nombre">Ensalada + Pollo al chilindrón con quinoa</span>
+      <span class="carbo-tag">Carbo</span><span class="proteina-tag">Proteína</span><span class="fruta-tag">Fruta</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">ENSALADA VERDE</td></tr>
+        <tr><td>Canónigos + tomate + pepino + pimiento</td><td class="cant">Libre</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">CHILINDRÓN + QUINOA</td></tr>
+        <tr><td>Contramuslo pollo sin piel/hueso</td><td class="cant">220g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Quinoa en seco</td><td class="cant">80g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Cebolla mediana</td><td class="cant">1 ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Pimiento rojo grande</td><td class="cant">1 ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Pimiento verde mediano</td><td class="cant">1 ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Ajo</td><td class="cant">3 dientes</td><td class="ajuste">—</td></tr>
+        <tr><td>Tomate triturado natural</td><td class="cant">200g</td><td class="ajuste">—</td></tr>
+        <tr><td>Vino blanco seco</td><td class="cant">100ml</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE · pimentón dulce · ahumado · laurel · tomillo</td><td class="cant">10g AOVE</td><td class="ajuste">—</td></tr>
+        <tr><td>Fruta de temporada</td><td class="cant">150g</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Quinoa: enjuaga bajo el grifo 1 min. En 160ml agua con sal, lleva a ebullición, mínimo, tapa 12 min. Reposa tapada 5 min. Suelta con tenedor.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Salpimenta el pollo. Sartén fuego fuerte con AOVE, sella 3–4 min por lado hasta costra. Reserva.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Misma cazuela: pocha cebolla 6 min. Añade pimientos, sofríe 8 min. Ajo 1 min. Pimentones fuera del fuego 20 seg. Vino blanco, reduce 3 min. Tomate, mezcla. Devuelve el pollo con laurel+tomillo. Tapa, fuego lento 25–30 min.</span></div>
+      <div class="paso"><span class="paso-num">4</span><span>Sirve quinoa como base, pollo encima con la salsa de chilindrón.</span></div>
+    </div>
+  </div>
+
+  <div class="nota-cena">⚠️ CENA — Sin carbohidrato</div>
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Cena · 20:30</span>
+      <span class="bloque-nombre">Crema de calabacín + Salmón a la plancha con espinacas salteadas</span>
+      <span class="proteina-tag">Proteína</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">CREMA DE CALABACÍN</td></tr>
+        <tr><td>Calabacín</td><td class="cant">300g</td><td class="ajuste">—</td></tr>
+        <tr><td>Cebolla · ajo · caldo verduras</td><td class="cant">250ml caldo</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE · sal · pimienta blanca</td><td class="cant">8g AOVE</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">SALMÓN + ESPINACAS</td></tr>
+        <tr><td>Salmón (lomo)</td><td class="cant">200g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Espinacas frescas</td><td class="cant">150g</td><td class="ajuste">—</td></tr>
+        <tr><td>Ajo · AOVE · nuez moscada · limón</td><td class="cant">8g AOVE</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Crema: pocha cebolla+ajo en AOVE 5 min. Añade calabacín en dados, rehoga 3 min. Cubre con el caldo (usa solo 250ml para que quede cremosa, no aguada). Cuece 15 min. Tritura a máxima potencia. Sal y pimienta blanca.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Salmón: seca con papel, salpimenta. Sartén fuego alto, lado piel 4 min sin mover, voltea 2–3 min. Centro puede quedar rosado.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Espinacas: ajo laminado en AOVE 30 seg, espinacas de golpe, remueve 1–2 min hasta que reduzcan. Nuez moscada + limón fuera del fuego.</span></div>
+    </div>
+  </div>
+  <div class="suplementos-box">
+    <div class="suplementos-titulo">🌙 Suplementos nocturnos</div>
+    Omega-3 · Vitamina D3+K2 · Magnesio glicinato 300mg · Infusión de jengibre
+  </div>
+</div>
+
+<!-- ===== DÍA 5: JUEVES 3 JUL (STRONG) ===== -->
+<div class="dia-pagina">
+  <div class="dia-header">
+    <div>
+      <div class="dia-titulo">Jueves 3 Jul</div>
+      <div class="dia-fecha">Entreno Strong 45' — Déficit moderado</div>
+    </div>
+    <div class="dia-meta">
+      <div><span class="dia-entreno-badge badge-strong">💪 STRONG 45'</span></div>
+      <div class="dia-hrv-box" style="margin-top:6px; justify-content:flex-end">
+        <span>VFC registrada:</span>
+        <div class="hrv-input">&nbsp;</div>
+        <span>ms</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Desayuno · Post</span>
+      <span class="bloque-nombre">Revuelto de huevos + Avena con canela y fruta</span>
+      <span class="proteina-tag">Proteína</span><span class="carbo-tag">Carbo</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td>Huevos enteros</td><td class="cant">3 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Claras de huevo</td><td class="cant">2 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Avena en copos</td><td class="cant">75g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Melocotón o albaricoque (temporada)</td><td class="cant">150g</td><td class="ajuste">—</td></tr>
+        <tr><td>Creatina monohidrato</td><td class="cant">5g</td><td class="ajuste">—</td></tr>
+        <tr><td>Infusión dorada</td><td class="cant">1 taza</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Creatina en agua, bebe nada más llegar.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Avena: hierve agua, cuece 4–5 min, reposa 2 min tapada. Canela y fruta de temporada encima.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Revuelto: bate huevos+claras, sartén fuego medio-bajo, trozos grandes, retira jugoso.</span></div>
+    </div>
+  </div>
+
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Comida · 14:00</span>
+      <span class="bloque-nombre">Ensalada + Lentejas con verduras y huevo escalfado</span>
+      <span class="carbo-tag">Legumbre</span><span class="proteina-tag">Proteína</span><span class="fruta-tag">Fruta</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">ENSALADA VERDE</td></tr>
+        <tr><td>Canónigos + tomate + pepino</td><td class="cant">Libre</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">LENTEJAS + HUEVO ESCALFADO</td></tr>
+        <tr><td>Lentejas pardinas en seco</td><td class="cant">80g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Cebolla · zanahoria · pimiento verde</td><td class="cant">1+1+½</td><td class="ajuste">—</td></tr>
+        <tr><td>Tomate maduro o triturado</td><td class="cant">150g</td><td class="ajuste">—</td></tr>
+        <tr><td>Ajo</td><td class="cant">3 dientes</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE · pimentón · comino · laurel</td><td class="cant">10g AOVE</td><td class="ajuste">—</td></tr>
+        <tr><td>Huevos para escalfar</td><td class="cant">2 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Vinagre blanco (para escalfar)</td><td class="cant">1 cda</td><td class="ajuste">—</td></tr>
+        <tr><td>Fruta de temporada</td><td class="cant">150g</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Lentejas: pocha cebolla+zanahoria+pimiento+ajo 8 min. Tomate 3 min. Pimentones 20 seg fuego bajo. Añade lentejas escurridas+agua+laurel. Cuece 25–30 min tapada a fuego suave. Ajusta sal.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Huevo escalfado: agua casi hirviendo (sin burbujas fuertes) + vinagre. Casca cada huevo en una taza. Crea remolino suave, vierte el huevo muy cerca del agua. Cuece 3 min exactos para yema líquida. Saca con espumadera, seca en papel.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Sirve lentejas en bol hondo, coloca los huevos escalfados encima. Hilo de AOVE en crudo + pimentón ahumado.</span></div>
+    </div>
+  </div>
+
+  <div class="nota-cena">⚠️ CENA — Sin carbohidrato</div>
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Cena · 20:30</span>
+      <span class="bloque-nombre">Gazpacho + Pavo a la plancha con judía verde</span>
+      <span class="proteina-tag">Proteína</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">GAZPACHO</td></tr>
+        <tr><td>Tomates maduros de pera</td><td class="cant">500g</td><td class="ajuste">—</td></tr>
+        <tr><td>Pepino · pimiento verde · cebolla · ajo</td><td class="cant">½+½+¼+1</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE · vinagre de jerez · sal</td><td class="cant">2 cdas</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">PAVO + JUDÍA VERDE</td></tr>
+        <tr><td>Filete de pavo</td><td class="cant">190g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Judía verde</td><td class="cant">200g</td><td class="ajuste">—</td></tr>
+        <tr><td>Ajo · AOVE · limón · sal · pimienta</td><td class="cant">8g AOVE</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Gazpacho: tritura todo a máxima potencia, AOVE en hilo, cuela. Nevera mínimo 45 min.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Judía verde: cuece en agua hirviendo con sal 5–6 min. Escurre. Saltea en sartén con ajo laminado en AOVE 2 min. Limón al final.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Pavo: seca con papel, salpimenta. Sartén fuego alto, 3 min por lado. Reposa 2 min tapado antes de cortar.</span></div>
+    </div>
+  </div>
+  <div class="suplementos-box">
+    <div class="suplementos-titulo">🌙 Suplementos nocturnos</div>
+    Omega-3 · Vitamina D3+K2 · Magnesio glicinato 300mg · Infusión de jengibre
+  </div>
+</div>
+
+<!-- ===== DÍA 6: VIERNES 4 JUL (SPINNING) ===== -->
+<div class="dia-pagina">
+  <div class="dia-header">
+    <div>
+      <div class="dia-titulo">Viernes 4 Jul</div>
+      <div class="dia-fecha">Entreno Spinning — Ajuste según VFC del día</div>
+    </div>
+    <div class="dia-meta">
+      <div><span class="dia-entreno-badge badge-spin">🚴 SPINNING</span></div>
+      <div class="dia-hrv-box" style="margin-top:6px; justify-content:flex-end">
+        <span>VFC registrada:</span>
+        <div class="hrv-input">&nbsp;</div>
+        <span>ms</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Desayuno · Post</span>
+      <span class="bloque-nombre">Revuelto de huevos + Avena con plátano</span>
+      <span class="proteina-tag">Proteína</span><span class="carbo-tag">Carbo</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td>Huevos enteros</td><td class="cant">3 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Claras de huevo</td><td class="cant">2 uds</td><td class="ajuste">—</td></tr>
+        <tr><td>Avena en copos</td><td class="cant">80g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Plátano mediano</td><td class="cant">120g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Creatina monohidrato</td><td class="cant">5g</td><td class="ajuste">—</td></tr>
+        <tr><td>Infusión dorada</td><td class="cant">1 taza</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Creatina nada más llegar.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Avena y revuelto igual que días anteriores. Ver protocolo Lunes.</span></div>
+    </div>
+  </div>
+
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Comida · 14:00</span>
+      <span class="bloque-nombre">Ensalada + Arroz meloso con gambas y sepia</span>
+      <span class="carbo-tag">Arroz</span><span class="proteina-tag">Marisco</span><span class="fruta-tag">Fruta</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">ENSALADA VERDE</td></tr>
+        <tr><td>Canónigos + tomate + pepino</td><td class="cant">Libre</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">ARROZ MELOSO</td></tr>
+        <tr><td>Arroz bomba o redondo</td><td class="cant">85g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Gambas peladas frescas/descongeladas</td><td class="cant">180g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Sepia limpia en dados</td><td class="cant">120g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Cebolla · pimiento rojo · ajo</td><td class="cant">½+½+2</td><td class="ajuste">—</td></tr>
+        <tr><td>Tomate maduro rallado</td><td class="cant">1 ud</td><td class="ajuste">—</td></tr>
+        <tr><td>Fumet o caldo de pescado (caliente)</td><td class="cant">550ml</td><td class="ajuste">—</td></tr>
+        <tr><td>Azafrán (en infusión)</td><td class="cant">unas hebras</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE · pimentón dulce · ahumado · sal</td><td class="cant">10g AOVE</td><td class="ajuste">—</td></tr>
+        <tr><td>Perejil fresco + limón</td><td class="cant">al servir</td><td class="ajuste">—</td></tr>
+        <tr><td>Fruta de temporada</td><td class="cant">150g</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Infusiona azafrán en 2 cdas de caldo caliente 10 min. Caldo a parte caliente.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Sartén/cazuela fuego alto: sella sepia salpimentada 3–4 min. Reserva.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Misma cazuela: pocha cebolla 6 min. Pimiento rojo 5 min. Ajo 1 min. Tomate rallado 4–5 min hasta concentrado oscuro. Pimentones fuera del fuego 20 seg.</span></div>
+      <div class="paso"><span class="paso-num">4</span><span>Devuelve sepia. Añade arroz, rehoga 1–2 min. Caldo de golpe + azafrán. Revuelve una sola vez. Ebullición fuerte 2 min, baja a fuego medio-bajo 14–16 min.</span></div>
+      <div class="paso"><span class="paso-num">5</span><span>Últimos 3 min: gambas encima sin hundir, se cocinan al vapor. Apaga cuando cambien de color. Reposa 2 min tapado. Perejil+limón al servir.</span></div>
+    </div>
+  </div>
+
+  <div class="nota-cena">⚠️ CENA — Sin carbohidrato</div>
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Cena · 20:30</span>
+      <span class="bloque-nombre">Crema de espárragos y guisantes + Tofu marinado + Brócoli ajo negro</span>
+      <span class="proteina-tag">Proteína vegetal</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">CREMA ESPÁRRAGOS Y GUISANTES</td></tr>
+        <tr><td>Espárragos verdes (extremos retirados)</td><td class="cant">200g</td><td class="ajuste">—</td></tr>
+        <tr><td>Guisantes congelados</td><td class="cant">100g</td><td class="ajuste">—</td></tr>
+        <tr><td>Cebolla · ajo · caldo de verduras</td><td class="cant">400ml caldo</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE · sal · pimienta blanca</td><td class="cant">8g AOVE</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">TOFU MARINADO + BRÓCOLI</td></tr>
+        <tr><td>Tofu firme</td><td class="cant">150g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Marinado: soja baja sodio + aceite sésamo + jengibre + ajo + vinagre arroz</td><td class="cant">2 cdas soja</td><td class="ajuste">—</td></tr>
+        <tr><td>Maicena (para rebozar)</td><td class="cant">ligera</td><td class="ajuste">—</td></tr>
+        <tr><td>Brócoli en floretes</td><td class="cant">180g</td><td class="ajuste">—</td></tr>
+        <tr><td>Ajo negro (3 dientes) · AOVE · limón</td><td class="cant">8g AOVE</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Marinado de tofu: mezcla todos ingredientes. Corta tofu en filetes 1.5 cm, sécalos muy bien con papel (clave para que queden crujientes). Marina 30 min mínimo.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Crema: pocha cebolla+ajo en AOVE 5 min. Espárragos troceados 3 min. Cubre con caldo, añade guisantes congelados directamente. Cuece 12 min. Tritura a máxima potencia hasta brillante y fina.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Tofu: escurre del marinado. Espolvorea maicena por ambas caras. Sartén fuego alto con spray AOVE. 3–4 min sin mover hasta costra dorada. Voltea 3 min. Últimos 30 seg: cda de marinado sobrante encima, carameliza.</span></div>
+      <div class="paso"><span class="paso-num">4</span><span>Brócoli: blanquea 2 min en agua hirviendo. Plancha muy caliente, 3 min sin mover, voltea 2 min. Ajo negro aplastado en pasta, extiende sobre el brócoli. Limón al servir.</span></div>
+    </div>
+  </div>
+  <div class="suplementos-box">
+    <div class="suplementos-titulo">🌙 Suplementos nocturnos</div>
+    Omega-3 · Vitamina D3+K2 · Magnesio glicinato 300mg · Infusión de jengibre
+  </div>
+</div>
+
+<!-- ===== DÍA 7: SÁBADO 5 JUL (DESCANSO) ===== -->
+<div class="dia-pagina">
+  <div class="dia-header">
+    <div>
+      <div class="dia-titulo">Sábado 5 Jul</div>
+      <div class="dia-fecha">Día de descanso — Déficit alto</div>
+    </div>
+    <div class="dia-meta">
+      <div><span class="dia-entreno-badge badge-descanso">🛌 DESCANSO</span></div>
+      <div class="dia-hrv-box" style="margin-top:6px; justify-content:flex-end">
+        <span>VFC registrada:</span>
+        <div class="hrv-input" style="background:#f5f5f5">&nbsp;</div>
+        <span>ms</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Desayuno · 09:30</span>
+      <span class="bloque-nombre">Yogur griego + Frutos rojos + Granola + Fruta</span>
+      <span class="proteina-tag">Proteína</span><span class="fruta-tag">Fruta</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td>Yogur griego 0% MG</td><td class="cant">200g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Frutos rojos (fresas + arándanos)</td><td class="cant">120g</td><td class="ajuste">—</td></tr>
+        <tr><td>Granola sin azúcar (avena tostada+frutos secos)</td><td class="cant">25g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Sandía o melón (temporada)</td><td class="cant">200g</td><td class="ajuste">—</td></tr>
+        <tr><td>Café solo o infusión</td><td class="cant">1 taza</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Comida · 14:00</span>
+      <span class="bloque-nombre">Ensalada + Pulpo a feira (sin patata) + Fruta</span>
+      <span class="proteina-tag">Proteína</span><span class="fruta-tag">Fruta</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">ENSALADA GRANDE</td></tr>
+        <tr><td>Lechuga + tomate + pepino + pimiento + zanahoria rallada</td><td class="cant">Libre</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE + vinagre de manzana</td><td class="cant">8g AOVE</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">PULPO A FEIRA</td></tr>
+        <tr><td>Pulpo cocido (listo para usar)</td><td class="cant">200g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Pimentón dulce · pimentón ahumado</td><td class="cant">al gusto</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE en crudo · sal gorda · perejil</td><td class="cant">8g AOVE</td><td class="ajuste">—</td></tr>
+        <tr><td>Fruta de temporada (sandía o melocotón)</td><td class="cant">200g</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Pulpo ya cocido: calienta en agua hirviendo 2–3 min o en sartén con unas gotas AOVE hasta que esté caliente. Corta en rodajas con tijeras.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Sirve en tabla o plato: pimentón dulce y ahumado generoso, sal gorda, AOVE en crudo abundante. Sin patata — día de descanso, déficit alto.</span></div>
+    </div>
+  </div>
+
+  <div class="nota-cena">⚠️ CENA — Sin carbohidrato · Día de descanso · Raciones ajustadas</div>
+  <div class="bloque-comida">
+    <div class="bloque-header">
+      <span class="bloque-hora">Cena · 20:00</span>
+      <span class="bloque-nombre">Caldo de verduras + Merluza al vapor con verduras</span>
+      <span class="proteina-tag">Proteína</span>
+    </div>
+    <table class="ingredientes-tabla">
+      <thead><tr><th>Ingrediente</th><th class="cant-col">Cantidad base</th><th class="ajuste-col">Ajuste real</th></tr></thead>
+      <tbody>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">CALDO DE VERDURAS</td></tr>
+        <tr><td>Caldo de verduras casero o brick bajo sal</td><td class="cant">300ml</td><td class="ajuste">—</td></tr>
+        <tr><td colspan="3" style="background:#f9f9f9; font-weight:600; font-size:7pt; color:#555; padding:3px 8px">MERLUZA AL VAPOR + VERDURA</td></tr>
+        <tr><td>Merluza (lomo o rodaja)</td><td class="cant">180g</td><td class="ajuste"><div class="linea-ajuste"></div></td></tr>
+        <tr><td>Brócoli + zanahoria al vapor</td><td class="cant">200g</td><td class="ajuste">—</td></tr>
+        <tr><td>AOVE en crudo · limón · perejil · sal</td><td class="cant">8g AOVE</td><td class="ajuste">—</td></tr>
+      </tbody>
+    </table>
+    <div class="receta-bloque">
+      <div class="receta-titulo">Elaboración</div>
+      <div class="paso"><span class="paso-num">1</span><span>Verduras al vapor 6–7 min hasta tiernas pero con mordida.</span></div>
+      <div class="paso"><span class="paso-num">2</span><span>Merluza: al vapor sobre las verduras últimos 5–6 min, o en sartén con mínimo AOVE 3 min por lado. Seca antes de cocinar. Lista cuando la carne se separa en láminas al presionar.</span></div>
+      <div class="paso"><span class="paso-num">3</span><span>Aliña todo con AOVE en crudo, limón y perejil. El caldo de verduras caliente de entrante.</span></div>
+    </div>
+  </div>
+  <div class="suplementos-box">
+    <div class="suplementos-titulo">🌙 Suplementos nocturnos</div>
+    Omega-3 · Vitamina D3+K2 · Magnesio glicinato 300mg · Infusión de jengibre
+  </div>
+</div>
+
+<!-- ===== LISTA DE LA COMPRA ===== -->
+<div class="lista-compra">
+  <div class="encabezado-seccion">
+    <h2>Lista de la Compra — Semana 28 Jun / 4 Jul</h2>
+  </div>
+  <div class="compra-grid">
+    <div class="compra-categoria">
+      <h4>🥩 Carnes y Aves</h4>
+      <div class="compra-items">
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">600g</span><span>Pechuga de pollo</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">400g</span><span>Contramuslo pollo (sin piel/hueso)</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">380g</span><span>Filete de pavo</span></div>
+      </div>
+    </div>
+    <div class="compra-categoria">
+      <h4>🐟 Pescados y Marisco</h4>
+      <div class="compra-items">
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">380g</span><span>Salmón (lomos)</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">200g</span><span>Pez espada (filete)</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">400g</span><span>Dorada (filetes)</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">180g</span><span>Merluza (lomo)</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">180g</span><span>Gambas peladas</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">120g</span><span>Sepia limpia</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">200g</span><span>Pulpo cocido</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">4 latas</span><span>Atún al natural</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">150g</span><span>Tofu firme</span></div>
+      </div>
+    </div>
+    <div class="compra-categoria">
+      <h4>🥚 Huevos y Lácteos</h4>
+      <div class="compra-items">
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">24 uds</span><span>Huevos camperos M/L</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">450g</span><span>Yogur griego 0% MG</span></div>
+      </div>
+    </div>
+    <div class="compra-categoria">
+      <h4>🫘 Legumbres y Cereales</h4>
+      <div class="compra-items">
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">300g</span><span>Lentejas pardinas (seco)</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">2 botes</span><span>Garbanzos cocidos</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">600g</span><span>Avena en copos</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">350g</span><span>Quinoa</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">170g</span><span>Arroz bomba</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">80g</span><span>Pan integral (salmorejo)</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">25g</span><span>Granola sin azúcar</span></div>
+      </div>
+    </div>
+    <div class="compra-categoria">
+      <h4>🥦 Verduras y Hortalizas</h4>
+      <div class="compra-items">
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">800g</span><span>Brócoli</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">3 uds</span><span>Calabacín</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">300g</span><span>Espinacas frescas</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">300g</span><span>Espárragos verdes</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">200g</span><span>Judía verde</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">200g</span><span>Guisantes congelados</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">4 uds</span><span>Puerros</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">4 uds</span><span>Cebolla mediana</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">2 uds</span><span>Cebolla morada</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">1 cabeza</span><span>Ajo</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">3 uds</span><span>Pimiento rojo</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">3 uds</span><span>Pimiento verde</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">3 uds</span><span>Pepino</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">2 kg</span><span>Tomates maduros de pera</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">400g</span><span>Tomate cherry</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">3 uds</span><span>Zanahoria</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">150g</span><span>Canónigos</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">1 ud</span><span>Lechuga romana</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">6 dientes</span><span>Ajo negro</span></div>
+      </div>
+    </div>
+    <div class="compra-categoria">
+      <h4>🍊 Fruta de Temporada</h4>
+      <div class="compra-items">
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">5 uds</span><span>Plátano mediano</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">400g</span><span>Frutos rojos mixtos</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">1 kg</span><span>Sandía o melón</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">5 uds</span><span>Melocotón o albaricoque</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">5 uds</span><span>Naranja o nectarina</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">3 uds</span><span>Limón</span></div>
+      </div>
+    </div>
+    <div class="compra-categoria">
+      <h4>🫙 Despensa y Condimentos</h4>
+      <div class="compra-items">
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">500ml</span><span>Caldo pescado/fumet</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">1 brick</span><span>Caldo de verduras</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">200g</span><span>Tomate triturado natural</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">100ml</span><span>Vino blanco seco</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">50ml</span><span>Vinagre de jerez</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">50ml</span><span>Vinagre de manzana</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">30ml</span><span>Salsa de soja baja sodio</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">10ml</span><span>Aceite de sésamo</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">20g</span><span>Aceitunas negras sin hueso</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">30g</span><span>Nueces</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">1 bote</span><span>Maicena</span></div>
+      </div>
+    </div>
+    <div class="compra-categoria">
+      <h4>💊 Suplementos</h4>
+      <div class="compra-items">
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">1 bote</span><span>Creatina monohidrato 5g/día</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">—</span><span>Omega-3</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">—</span><span>Vitamina D3+K2</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">—</span><span>Magnesio glicinato 300mg</span></div>
+      </div>
+    </div>
+    <div class="compra-categoria">
+      <h4>🌿 Especias y Hierbas</h4>
+      <div class="compra-items">
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">—</span><span>Cúrcuma en polvo</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">—</span><span>Pimienta negra</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">1 trozo</span><span>Jengibre fresco</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">—</span><span>Pimentón dulce + ahumado</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">—</span><span>Comino molido</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">—</span><span>Laurel · tomillo · orégano</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">—</span><span>Nuez moscada</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">—</span><span>Canela en polvo</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">—</span><span>Mostaza antigua</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">—</span><span>Azafrán (hebras)</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">Perejil</span><span>+ Perejil fresco</span></div>
+        <div class="compra-item"><div class="check-box"></div><span class="compra-cantidad">Botella</span><span>AOVE virgen extra</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px; background: var(--verde-muy-claro); border-radius:8px; padding:12px; font-size:7.5pt; line-height:1.7">
+    <strong style="color:var(--verde); display:block; margin-bottom:4px">📌 NOTAS GENERALES DEL PROTOCOLO</strong>
+    ✓ Fruta de temporada: mínimo 3 piezas/día en días de entreno, 2 en descanso &nbsp;|&nbsp; ✓ Ensalada verde libre en comida y cena como entrante<br>
+    ✓ Cena SIEMPRE sin carbohidrato (ni siquiera días VFC &gt;110 ms) &nbsp;|&nbsp; ✓ Infusión dorada cada mañana post-entreno<br>
+    ✓ Creatina 5g post-entreno únicamente días de entreno &nbsp;|&nbsp; ✓ Suplementos nocturnos todos los días<br>
+    ✓ Verduras ad libitum en ensaladas &nbsp;|&nbsp; ✓ Z5 máximo 10 min/sesión — anota la VFC y ajusta las cantidades marcadas en blanco según indicación diaria<br>
+    ✓ Parar el reloj justo al terminar el último ejercicio y esperar quieto 2–3 min para medición real de recuperación cardíaca
+  </div>
+</div>
+
+</body>
+</html>
